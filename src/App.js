@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { getRepositories } from "./services/api";
 import Header from "./components/Header";
@@ -7,14 +7,16 @@ import Card from "./components/Card";
 export default function App() {
   const [repo, setRepo] = useState([]);
   const [entrada, setEntrada] = useState("");
-  const [erro, setErro] = useState(false);
+  const [erroEntrada, setErroEntrada] = useState(false);
+  const [page, setPage] = useState(0);
+  const PageEnum = { Ok: 0, Empty: 1, NotFound: 2 };
 
   const handleChange = event => {
     const { value } = event.target;
     const validation = /^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i;
 
-    if (!value.match(validation)) setErro(true);
-    else setErro(false);
+    if (!value.match(validation)) setErroEntrada(true);
+    else setErroEntrada(false);
 
     setEntrada(value);
   };
@@ -22,34 +24,46 @@ export default function App() {
   const handleEnter = event => {
     event.preventDefault();
 
-    if (!erro)
+    if (!erroEntrada)
       getRepositories(entrada)
-        .then(json => setRepo(json))
+        .then(json => {
+          if (json.message) setPage(PageEnum.NotFound);
+          else if (json.length) {
+            setPage(PageEnum.Ok);
+            setRepo(json);
+          }
+          else if (!json.length) setPage(PageEnum.Empty);
+          
+        })
         .catch(e => {
-          console.log("Erro", e);
+          setPage(PageEnum.NotFound);
           setRepo([]);
         });
   };
 
-  useEffect(() => {
-    getRepositories("degrecci")
-      .then(json => setRepo(json))
-      .catch(e => {
-        console.log("Erro", e);
-        setRepo([]);
-      });
-  }, []);
+  const pageSwitch = (param) =>{
+    switch (page) {
+      case PageEnum.Empty:
+        return <img className="repo-empty" src={require('./assets/images/empty.png')} alt=""/>;
+      case PageEnum.NotFound:
+        return <img className="repo-not-found" src={require('./assets/images/404.png')} alt="" />;;
+      default :
+        return <Card repo={repo} />;
+    }
+  } 
 
   return (
     <main>
       <section>
         <Header
           entrada={entrada}
-          erro={erro}
+          erro={erroEntrada}
           handleEnter={handleEnter}
           handleChange={handleChange}
         />
-        <Card repo={repo}/>
+        <section>
+          {pageSwitch(page)}
+        </section>
       </section>
     </main>
   );

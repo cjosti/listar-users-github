@@ -4,8 +4,7 @@ import { faStar, faShareSquare } from "@fortawesome/free-solid-svg-icons";
 
 export default function Card({repo}) {
   return (
-    <div>
-      <section>
+    <>
         <ul>
           {repo.map((item, index) => {
             return (
@@ -47,7 +46,6 @@ export default function Card({repo}) {
             );
           })}
         </ul>
-      </section>
-    </div>
+    </>
   );
 }

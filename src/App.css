@@ -100,3 +100,9 @@ li article main p {
 li article main span {
     color: #3976C2;
 }
+
+.repo-empty , .repo-not-found {
+    width: 350px;
+    margin-top: 25px;
+}
+
