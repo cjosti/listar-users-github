@@ -1,0 +1,102 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+body {
+    font-family: 'roboto', verdana, sans-serif;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+main > section {
+    width: 350px;
+    padding: 20px;
+    border: 1px solid #e1e1e1;
+    box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.22);
+}
+
+#header-page h1 {
+    line-height: 34px;
+    color: #686868;
+    font-size: 30px;
+}
+
+#header-page p {
+    line-height: 20px;
+    color: #686868;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+#header-page form input {
+    height: 32px;
+    width: 100%;
+    border: 1px solid #989898;
+    border-radius: 3px;
+}
+
+section ul li {    
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    border: 1px solid #ECECEC;
+    margin-top: 15px;
+    color: #686868;
+}
+
+li > header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+    font-size: 12px;
+    border-bottom: 1px solid #ECECEC;
+}
+
+li > article {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+li article > header {
+    display: flex;
+    flex-direction: row;
+}
+
+li article header > img {
+    width: 40px;
+    margin-right: 10px;
+}
+
+li article div > h1 {
+    font-size: 16px;
+    line-height: 20px;
+}
+
+li article > main {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 5px;
+    margin-top: 8px;    
+    overflow: auto;
+}
+
+li article main * {
+    margin-bottom: 7px;
+}
+
+li article main p {
+    font-size: 14px;
+}
+
+li article main span {
+    color: #3976C2;
+}
