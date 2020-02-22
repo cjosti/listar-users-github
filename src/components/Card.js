@@ -8,7 +8,7 @@ export default function Card({repo}) {
         <ul>
           {repo.map((item, index) => {
             return (
-              <li key={index}>
+              <li key={index} data-test="repositorio">
                 <header>
                   <h1>{item.name}</h1>
                   <a

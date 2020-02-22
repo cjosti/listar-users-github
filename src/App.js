@@ -3,6 +3,7 @@ import "./App.css";
 import { getRepositories } from "./services/api";
 import Header from "./components/Header";
 import Card from "./components/Card";
+import PageError from "./components/PageError";
 
 export default function App() {
   const [repo, setRepo] = useState([]);
@@ -31,9 +32,7 @@ export default function App() {
           else if (json.length) {
             setPage(PageEnum.Ok);
             setRepo(json);
-          }
-          else if (!json.length) setPage(PageEnum.Empty);
-          
+          } else if (!json.length) setPage(PageEnum.Empty);
         })
         .catch(e => {
           setPage(PageEnum.NotFound);
@@ -41,16 +40,16 @@ export default function App() {
         });
   };
 
-  const pageSwitch = (param) =>{
+  const pageSwitch = param => {
     switch (page) {
       case PageEnum.Empty:
-        return <img className="repo-empty" src={require('./assets/images/empty.png')} alt=""/>;
+        return <PageError image="empty" test="sem-repositorios" />
       case PageEnum.NotFound:
-        return <img className="repo-not-found" src={require('./assets/images/404.png')} alt="" />;;
-      default :
+        return <PageError image="404" test="nao-encontrado"/>
+      default:
         return <Card repo={repo} />;
     }
-  } 
+  };
 
   return (
     <main>
@@ -61,9 +60,7 @@ export default function App() {
           handleEnter={handleEnter}
           handleChange={handleChange}
         />
-        <section>
-          {pageSwitch(page)}
-        </section>
+        <section>{pageSwitch(page)}</section>
       </section>
     </main>
   );

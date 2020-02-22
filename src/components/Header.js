@@ -13,6 +13,7 @@ export default function Header({ entrada, erro, handleEnter, handleChange }) {
         <p>Veja os repositórios do seu usuário favorito!</p>
         <form onSubmit={handleEnter}>
           <input
+            data-test="entrada"
             type="text"
             style={style}
             value={entrada}
